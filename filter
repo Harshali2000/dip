@@ -1,0 +1,174 @@
+% Experiment 6 A: Spatial Domain Filtering
+
+% Clean up workspace and figures
+clc;
+clear all;
+close all;
+
+% Load and display the original image
+I = imread('low constrast.jpg');  % Load image
+I = rgb2gray(I);          % Convert to grayscale
+figure(1);
+subplot(2,2,1);
+imshow(I);
+title('Original Image');
+
+%% Weighted Average Filter
+kernel = 1/16 * [1,2,1; 2,4,2; 1,2,1];  % Define the kernel
+IF = imfilter(I, kernel);  % Apply weighted average filter
+subplot(2,2,2);
+imshow(IF);
+title('Weighted Avg Filter');
+
+%% Add Salt and Pepper Noise
+IN = imnoise(I, 'salt & pepper', 0.05);  % Add noise
+subplot(2,2,3);
+imshow(IN);
+title('Salt and Pepper Noise');
+
+%% Apply Median Filter
+IFM = medfilt2(IN, [3, 3]);  % Apply 3x3 median filter
+subplot(2,2,4);
+imshow(IFM);
+title('Median Filtered Image');
+
+%% Minimum and Maximum Filtering using ordfilt2
+figure(2);
+
+% Min Filter
+I_min = ordfilt2(IN, 1, ones(3, 3));  % Minimum filter
+subplot(1,2,1);
+imshow(I_min);
+title('Min Filtered Image');
+
+% Max Filter
+I_max = ordfilt2(IN, 9, ones(3, 3));  % Maximum filter
+subplot(1,2,2);
+imshow(I_max);
+title('Max Filtered Image');
+
+%% Box Filter with Different Kernel Sizes
+figure(3);
+subplot(2,2,1);
+imshow(I);
+title('Original Image');
+
+% Box Filter Kernel 3x3
+kernel_3 = (1/9) * ones(3, 3);
+IF_3 = imfilter(I, kernel_3);
+subplot(2,2,2);
+imshow(IF_3);
+title('Box Filter Kernel 3x3');
+
+% Box Filter Kernel 5x5
+kernel_5 = (1/25) * ones(5, 5);
+IF_5 = imfilter(I, kernel_5);
+subplot(2,2,3);
+imshow(IF_5);
+title('Box Filter Kernel 5x5');
+
+% Box Filter Kernel 7x7
+kernel_7 = (1/49) * ones(7, 7);
+IF_7 = imfilter(I, kernel_7);
+subplot(2,2,4);
+imshow(IF_7);
+title('Box Filter Kernel 7x7');
+
+% Expt 6 B: Laplacian filtering
+%clc;
+%clear all; 
+%close all; 
+figure (1) ;
+I = imread ('low constrast.jpg') ;
+I = rgb2gray (I) ;
+I = im2double (I) ;
+subplot (1,2, 1) ; imshow (1) ;
+title ('Original image');
+I
+kernel_laplacian = [0 -1 0; -1 4 - 1; 0 - 1 01;
+I_ laplacian = imfilter (I, kernel_laplacian, 'replicate');
+subplot (1,2,2) ; 
+imshow (I_laplacian) ;
+title ('Laplacian Filtered Image')
+
+
+% Expt 6 B: Laplacian Filtering
+clc;
+clear all;
+close all;
+
+% Read and display the original image
+figure(1);
+I = imread('images.jpeg');  % Ensure the file name is correct
+I = rgb2gray(I);                 % Convert to grayscale
+I = im2double(I);                % Convert to double for precision
+
+subplot(1, 2, 1);
+imshow(I);                       % Display the original image
+title('Original Image');
+
+% Define the Laplacian kernel
+kernel_laplacian = [0 -1 0; -1 4 -1; 0 -1 0];
+
+% Apply the Laplacian filter
+I_laplacian = imfilter(I, kernel_laplacian, 'replicate');  % 'replicate' handles border pixels
+
+% Display the Laplacian filtered image
+subplot(1, 2, 2);
+imshow(I_laplacian, []);
+title('Laplacian Filtered Image');
+
+
+% Sobel Edge Detection
+clc;
+clear all;
+close all;
+
+% Read and preprocess the image
+I = imread('images.jpeg');  % Load the image
+I = rgb2gray(I);            % Convert to grayscale
+I = im2double(I);           % Convert to double for precision
+[r, c] = size(I);           % Get the size of the image
+
+% Initialize gradient matrices
+Gx = zeros(r, c);           % Horizontal gradients
+Gy = zeros(r, c);           % Vertical gradients
+
+% Sobel operator kernels
+Sobel_x = [-1 0 1; -2 0 2; -1 0 1];  % Horizontal kernel
+Sobel_y = [-1 -2 -1; 0 0 0; 1 2 1];  % Vertical kernel
+
+% Compute the gradients using Sobel operators
+for i = 2:r-1
+    for j = 2:c-1
+        % Extract the 3x3 region around the pixel
+        sub_matrix = I(i-1:i+1, j-1:j+1);
+        
+        % Compute Gx (horizontal edge response)
+        Gx(i, j) = sum(sum(sub_matrix .* Sobel_x));
+        
+        % Compute Gy (vertical edge response)
+        Gy(i, j) = sum(sum(sub_matrix .* Sobel_y));
+    end
+end
+
+% Compute the gradient magnitude
+G = sqrt(Gx.^2 + Gy.^2);
+
+% Display the results
+figure;
+subplot(2,2,1);
+imshow(I);
+title('Original Image');
+
+subplot(2,2,2);
+imshow(Gx, []);
+title('Horizontal Edges (Gx)');
+
+subplot(2,2,3);
+imshow(Gy, []);
+title('Vertical Edges (Gy)');
+
+subplot(2,2,4);
+imshow(G, []);
+title('Gradient Magnitude (Edges)');
