@@ -1,0 +1,22 @@
+from google.colab import drive 
+drive.mount('/content/drive') 
+import cv2 as cv 
+import numpy as np 
+from google.colab.patches import cv2_imshow 
+#Original image 
+img = cv.imread('/content/morpho.png', cv.IMREAD_GRAYSCALE) 
+cv2_imshow(img) 
+#structuring element 
+kernel = np.ones((5,5),np.uint8) 
+#Erosion 
+erosion = cv.erode(img,kernel,iterations = 3)
+cv2_imshow(erosion)
+#dilation 
+dilation = cv.dilate(img,kernel,iterations = 3) 
+cv2_imshow(dilation) 
+#opening and closing 
+opening = cv.morphologyEx(img, cv.MORPH_OPEN, kernel) 
+cv2_imshow(opening) 
+closing = cv.morphologyEx(img, cv.MORPH_CLOSE, kernel)
+cv2_imshow(closing)
+
