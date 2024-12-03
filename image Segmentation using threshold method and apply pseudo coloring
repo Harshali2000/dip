@@ -1,0 +1,39 @@
+clc;
+clear all;
+close all;
+figure(1);
+img=imread('coins.png');
+subplot(2,2,1);
+imshow(img);
+title('original image');
+hist=imhist(img);
+subplot(2,2,2);
+stem(hist);
+title('original image')
+[row,col]=size(img);
+for i=1:row
+    for j=1:col
+        if(img(i,j)>0 && img(i,j)<93)
+            red(i,j)=255;
+            green(i,j)=255;
+            blue(i,j)=0;
+
+        else if(img(i,j)>93 && img(i,j)<210)
+            red(i,j)=255;
+            green(i,j)=0;
+            blue(i,j)=255;
+
+       else if(img(i,j)>210 && img(i,j)<255)
+             red(i,j)=0;
+             green(i,j)=255;
+             blue(i,j)=255;
+         end
+         end
+         end
+     end
+ end
+
+ subplot(2,2,3);
+ img_concat=cat(3,red, green, blue);
+ imshow(img_concat);
+ title('thresholded image');
