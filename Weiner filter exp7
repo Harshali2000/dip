@@ -1,0 +1,23 @@
+clc;
+close all;
+clear all;
+Ioriginal = imread('cameraman.jpeg');
+subplot(2,2,1);
+imshow(Ioriginal)
+title('Original Image')
+PSF = fspecial('motion',15, 90);
+Idouble = im2double(Ioriginal);
+blurred = imfilter(Idouble, PSF,'conv','circular');
+subplot(2,2,2);
+imshow(blurred)
+title('Blurred Image')
+wnr1 = deconvwnr(blurred, PSF);
+subplot(2,2,3);
+imshow(wnr1)
+title('Restored Deblurred Image')
+%Calculate SSIM &amp; PSIM
+SSIM = ssim(wnr1, Idouble);
+PSNR = 10*log (psnr(wnr1, Idouble));
+display(SSIM);
+display(PSNR);
+%higher the psnr image better the restored image
