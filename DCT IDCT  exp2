@@ -1,0 +1,34 @@
+
+clc;
+
+close all;
+
+clear all;
+
+figure(1);
+
+a=imread("dog.jpg");
+
+subplot(2,2,1);
+
+b=imshow(a);
+
+title('Original image');
+
+g=im2double(rgb2gray(a));
+
+c=dct2(g);
+
+subplot(2,2,2);
+
+d=imshow(c);
+
+title('DCT Image');
+
+e=idct2(c);
+
+subplot(2,2,3);
+
+f=imshow(e);
+
+title('IDCT Image')
