@@ -1,0 +1,65 @@
+% To perform arithmetic ,logical, set and spatial domain operations on an image 
+clc;
+clear all;
+close all;
+figure(1);
+img=imread("peppers.png");
+%plotting original image
+subplot(2,2,1);
+b=imshow(img);
+title('Original image');
+%plotting rgb channel image
+IR=img(:,:,1);
+subplot(2,2,2);
+a=imshow(IR);
+title('Red channel image');
+IG=img(:,:,2);
+subplot(2,2,3);
+c=imshow(IG);
+title('Green channel image');
+IB=img(:,:,3);
+subplot(2,2,4);
+d=imshow(IB);
+title('Blue channel image');
+%Binarizing each channel
+IRBin=imbinarize(IR);
+IGBin=imbinarize(IG);
+IBBin=imbinarize(IB);
+%arithmetic operation
+figure(2);
+add_img=imadd(IBBin,IGBin);
+subplot(2,2,1);
+imshow(add_img);
+title('Addition of blue and green image');
+%Addition of img
+sub_img=imsubtract(IRBin,IGBin);
+subplot(2,2,2);
+imshow(sub_img);
+title('Subtraction of and green image');
+%Subtraction of img
+mul_img=immultiply(IRBin,IGBin); subplot(2,2,3);
+imshow(mul_img);
+title('Multiplication of and green image'); %Multiplication of
+
+img
+div_img=imdivide(IRBin,IGBin); subplot(2,2,4);
+imshow(div_img);
+title('Division of and green image'); %Division of img
+%Logical operation
+figure(3);
+xor_img=xor(IBBin,IGBin);
+subplot(2,1,1);
+imshow(xor_img);
+title('XOR of blue and green image'); or_img=IBBin|IGBin;
+subplot(2,1,2);
+imshow(or_img);
+title('OR of blue and green image'); %Rotaional
+operation and scaling figure(4);
+j=imrotate(img,90);
+subplot(2,1,1);
+imshow(j);
+title('Rotaion of img');
+r=imresize(img,0.2);
+subplot(2,1,2);
+imshow(r);
+title('Resize of img');
