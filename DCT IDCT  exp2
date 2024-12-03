@@ -32,3 +32,21 @@ subplot(2,2,3);
 f=imshow(e);
 
 title('IDCT Image')
+
+
+HISTOGRAM  EQUILIZATION
+
+clc;
+clear all;
+close all;
+I = imread("dog.jpg");
+figure(1)
+subplot(2,2,1)
+imshow(I)
+subplot(2,2,2)
+imhist(I)
+J = histeq(I);
+subplot(2,2,3)
+imshow(J)
+subplot(2,2,4)
+imhist(J)
