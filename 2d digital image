@@ -1,0 +1,22 @@
+clc;
+clear all;
+close all;
+% To create 2D digital image
+figure(1);
+x=[0,1,0,1,0;1,0,1,0,1;0,1,0,1,0;1,0,1,0,1;0,1,0,1,0];
+subplot(2,2,1);
+imshow(x);
+title(['Chess Board 2D Image']);
+%create normalize grayscale image
+y=[0,.25,.5,.75,.9;0,.25,.5,.75,.9;0,.25,.5,.75,.9;0,.25,.5,.75,.9;0,.25,.5,.75,.9];
+subplot(2,2,2);
+imshow(y);
+title(['Grayscale 2D Image']);
+z=[1,0,1,0,0,0;1,0,1,1,1,0;1,0,1,0,0,0;1,0,1,1,1,0;1,0,1,0,0,0];
+subplot(2,2,3);
+imshow(z);
+title(['I E pattern 2D Image']);
+v=[1,0,1,0,0,0;1,0,1,0,1,0;1,0,1,0,0,0;1,0,1,1,1,0;1,0,1,0,0,0];
+subplot(2,2,4);
+imshow(v);
+title(['I S pattern 2D Image']);
